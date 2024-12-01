@@ -1,21 +1,33 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.android)
+    id("org.jetbrains.kotlin.plugin.serialization")
+    id("androidx.room")
+    id("kotlin-parcelize")
+    alias(libs.plugins.compose.compiler)
 }
+
+
 
 android {
     namespace = "com.example.tigerittest"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.tigerittest"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments(mapOf(Pair("room.schemaLocation", "$projectDir/schemas")))
+            }
+        }
     }
 
     buildTypes {
@@ -28,11 +40,20 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
+        freeCompilerArgs += arrayOf(
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+            "-opt-in=androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi",
+            "-opt-in=androidx.paging.ExperimentalPagingApi",
+            "-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi",
+        )
+    }
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
     buildFeatures {
         compose = true
@@ -56,4 +77,16 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
+
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.androidx.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
+
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }
