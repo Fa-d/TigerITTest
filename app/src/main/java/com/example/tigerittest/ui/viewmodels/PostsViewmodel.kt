@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.example.tigerittest.data.models.Post
 import com.example.tigerittest.domain.core.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,7 @@ class PostsViewmodel @Inject constructor(
     //  val postsList = MutableStateFlow<List<Post>>(emptyList())
     val posts = mainRepository.getPostsFromMediator().cachedIn(viewModelScope)
     val postDetails = MutableStateFlow(PostDetailsShow())
+    val postsByUser = MutableStateFlow(listOf<Post>())
 
 
     fun getPostsFromApi() {
@@ -73,6 +75,16 @@ class PostsViewmodel @Inject constructor(
                         postData?.body ?: ""
                     )
                 )
+            }
+        }
+    }
+
+    fun getAllPostsOfAUser() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val userID = getUserId()
+                val posts = mainRepository.getAllPostOfAUser(userID)
+                postsByUser.emit(posts)
             }
         }
     }
