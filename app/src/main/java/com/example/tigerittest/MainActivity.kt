@@ -12,6 +12,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.tigerittest.ui.nav.DummyPostNavGraph
 import com.example.tigerittest.ui.theme.TigerITTestTheme
 import com.example.tigerittest.uils.LocalNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,13 +24,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController: NavHostController = rememberNavController()
-            CompositionLocalProvider(
-                LocalNavController provides navController
-            ) {
+            CompositionLocalProvider(LocalNavController provides navController) {
                 TigerITTestTheme {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                         Box(modifier = Modifier.padding(innerPadding)) {
-
+                            DummyPostNavGraph(navController)
                         }
                     }
                 }
