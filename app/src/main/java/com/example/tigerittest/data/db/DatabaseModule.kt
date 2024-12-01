@@ -1,4 +1,4 @@
-package com.example.tigerittest.db
+package com.example.tigerittest.data.db
 
 import android.content.Context
 import androidx.room.Room

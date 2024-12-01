@@ -1,4 +1,4 @@
-package com.example.tigerittest.api
+package com.example.tigerittest.data.network
 
 
 import com.google.gson.Gson

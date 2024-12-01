@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import com.example.tigerittest.ui.screens.PostDetailsScreen
 import com.example.tigerittest.ui.screens.PostListScreen
 import com.example.tigerittest.ui.screens.UserDetailScreen
-import com.example.tigerittest.uils.LocalNavController
+import com.example.tigerittest.domain.utils.LocalNavController
 
 @Composable
 fun DummyPostNavGraph(

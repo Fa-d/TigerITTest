@@ -1,4 +1,4 @@
-package com.example.tigerittest.worker
+package com.example.tigerittest.domain.worker
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -9,10 +9,11 @@ import androidx.hilt.work.HiltWorker
 import androidx.room.withTransaction
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.tigerittest.api.ApiService
-import com.example.tigerittest.db.MainDatabase
-import com.example.tigerittest.models.RemoteKeys
-import com.example.tigerittest.uils.USERS_REMOTE_ID
+import com.example.tigerittest.data.network.ApiService
+import com.example.tigerittest.data.db.MainDatabase
+import com.example.tigerittest.data.models.RemoteKeys
+import com.example.tigerittest.domain.utils.USERS_REMOTE_ID
+
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 

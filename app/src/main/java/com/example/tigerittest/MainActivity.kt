@@ -16,8 +16,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.tigerittest.ui.nav.DummyPostNavGraph
 import com.example.tigerittest.ui.theme.TigerITTestTheme
 import com.example.tigerittest.ui.viewmodels.PostsViewmodel
-import com.example.tigerittest.uils.LocalNavController
-import com.example.tigerittest.uils.LocalPostsViewmodel
+import com.example.tigerittest.domain.utils.LocalNavController
+import com.example.tigerittest.domain.utils.LocalPostsViewmodel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
 

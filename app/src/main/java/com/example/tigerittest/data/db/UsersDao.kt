@@ -1,10 +1,10 @@
-package com.example.tigerittest.db
+package com.example.tigerittest.data.db
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.tigerittest.models.User
+import com.example.tigerittest.data.models.User
 
 @Dao
 interface UsersDao {

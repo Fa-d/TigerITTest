@@ -9,9 +9,9 @@ import androidx.work.Configuration
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.tigerittest.uils.USERS_SYNC_WORKER
-import com.example.tigerittest.worker.UsersFetchReceiver
-import com.example.tigerittest.worker.UsersSyncWorker
+import com.example.tigerittest.domain.utils.USERS_SYNC_WORKER
+import com.example.tigerittest.domain.worker.UsersFetchReceiver
+import com.example.tigerittest.domain.worker.UsersSyncWorker
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.example.tigerittest.uils
+package com.example.tigerittest.domain.utils
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.navigation.NavController

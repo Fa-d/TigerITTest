@@ -2,8 +2,8 @@ package com.example.tigerittest.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tigerittest.core.MainRepository
-import com.example.tigerittest.models.Post
+import com.example.tigerittest.domain.core.MainRepository
+import com.example.tigerittest.data.models.Post
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.example.tigerittest.models
+package com.example.tigerittest.data.models
 
 import android.os.Parcelable
 import androidx.room.Entity

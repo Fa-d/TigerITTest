@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.tigerittest.ui.components.PostItem
-import com.example.tigerittest.uils.LocalPostsViewmodel
+import com.example.tigerittest.domain.utils.LocalPostsViewmodel
 
 
 @Composable

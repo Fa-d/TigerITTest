@@ -1,8 +1,8 @@
-package com.example.tigerittest.core
+package com.example.tigerittest.domain.core
 
-import com.example.tigerittest.api.ApiService
-import com.example.tigerittest.db.MainDatabase
-import com.example.tigerittest.models.Post
+import com.example.tigerittest.data.network.ApiService
+import com.example.tigerittest.data.db.MainDatabase
+import com.example.tigerittest.data.models.Post
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
