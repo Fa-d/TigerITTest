@@ -3,9 +3,10 @@ package com.example.tigerittest.domain.core
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.tigerittest.data.network.ApiService
 import com.example.tigerittest.data.db.MainDatabase
 import com.example.tigerittest.data.models.Post
+import com.example.tigerittest.data.models.User
+import com.example.tigerittest.data.network.ApiService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -28,4 +29,8 @@ class MainRepository @Inject constructor(
             },
         ).flow
     }
+
+    suspend fun getUserByIdDb(userId: Int) = database.usersDao().getUserById(userId)
+    suspend fun insertSingleUser(user: User) = database.usersDao().insertSingleUser(user)
+
 }

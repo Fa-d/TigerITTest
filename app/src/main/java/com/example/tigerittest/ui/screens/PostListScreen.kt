@@ -14,13 +14,17 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.example.tigerittest.domain.utils.LocalNavController
 import com.example.tigerittest.domain.utils.LocalPostsViewmodel
 import com.example.tigerittest.ui.components.PostItem
+import com.example.tigerittest.ui.nav.NavScreens
 
 
 @Composable
 fun PostListScreen() {
     val viewModel = LocalPostsViewmodel.current
+    val navController = LocalNavController.current
+
     // val postsList = viewModel.postsList.collectAsState()
     val posts = viewModel.posts.collectAsLazyPagingItems()
 
@@ -36,17 +40,16 @@ fun PostListScreen() {
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            items(
-                count = posts.itemCount,
-                key = posts.itemKey { it },
-            ) { index ->
+            items(count = posts.itemCount, key = posts.itemKey { it }) { index ->
                 val postItem = posts[index]
-
                 if (postItem != null) {
-                    PostItem(postItem = postItem, onItemClicked = {})
+                    PostItem(postItem = postItem, onItemClicked = {
+                        viewModel.getUserByPost(postItem.userId) { fetched ->
+                            if (fetched) navController.navigate(NavScreens.POST_DETAIL_SCREEN + "/${postItem.userId}" + "/${postItem.id}")
+                        }
+                    })
                     Spacer(modifier = Modifier.height(10.dp))
                 }
-
             }
         }
     }

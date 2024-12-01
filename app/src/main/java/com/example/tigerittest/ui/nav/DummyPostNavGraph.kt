@@ -4,12 +4,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.example.tigerittest.domain.utils.LocalNavController
 import com.example.tigerittest.ui.screens.PostDetailsScreen
 import com.example.tigerittest.ui.screens.PostListScreen
 import com.example.tigerittest.ui.screens.UserDetailScreen
-import com.example.tigerittest.domain.utils.LocalNavController
 
 @Composable
 fun DummyPostNavGraph(
@@ -24,10 +26,16 @@ fun DummyPostNavGraph(
                 (currentNav.context as ComponentActivity).finish()
             }
         }
-        composable(route = NavScreens.POST_DETAIL_SCREEN) {
+        composable(
+            NavScreens.POST_DETAIL_SCREEN + "/{userId}" + "/{postId}",
+            arguments = listOf(
+                navArgument("userId") { type = NavType.IntType },
+                navArgument("postId") { type = NavType.IntType },
+            ),
+        ) {
             PostDetailsScreen()
         }
-        composable(route = NavScreens.USER_DETAIL_SCREEN) {
+        composable(NavScreens.USER_DETAIL_SCREEN) {
             UserDetailScreen()
         }
     }

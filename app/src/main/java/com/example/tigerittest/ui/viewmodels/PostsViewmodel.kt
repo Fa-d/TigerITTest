@@ -1,5 +1,6 @@
 package com.example.tigerittest.ui.viewmodels
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostsViewmodel @Inject constructor(
-    private val mainRepository: MainRepository
+    private val mainRepository: MainRepository, val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     //  val postsList = MutableStateFlow<List<Post>>(emptyList())
@@ -28,5 +29,34 @@ class PostsViewmodel @Inject constructor(
             }
         }
     }
+
+    fun getUserByPost(postId: Int, fetched: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val userDetail = mainRepository.getUserByIdDb(postId)
+                if (userDetail == null) {
+                    val user = mainRepository.getUserByIdNetwork(postId)
+                    mainRepository.insertSingleUser(user)
+                    withContext(Dispatchers.Main) {
+                        fetched(true)
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        fetched(true)
+                    }
+                }
+            }
+        }
+    }
+
+    fun getUserId(): Int {
+        return savedStateHandle.get<Int>("userId") ?: 0
+
+    }
+
+    fun getPostId(): Int {
+        return savedStateHandle.get<Int>("postId") ?: 0
+    }
+
 
 }
