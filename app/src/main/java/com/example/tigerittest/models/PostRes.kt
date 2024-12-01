@@ -1,6 +1,8 @@
 package com.example.tigerittest.models;
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -12,11 +14,12 @@ data class PostsRes(
 )
 
 @Parcelize
+@Entity(tableName = "posts", primaryKeys = ["id"])
 data class Post(
     @field:SerializedName("id") var id: Int = 0,
     @field:SerializedName("body") var body: String = "",
-    @field:SerializedName("reactions") var reactions: Reactions = Reactions(),
-    @field:SerializedName("tags") var tags: List<String> = listOf(),
+    @Ignore @field:SerializedName("reactions") var reactions: Reactions = Reactions(),
+    @Ignore @field:SerializedName("tags") var tags: List<String> = listOf(),
     @field:SerializedName("title") var title: String = "",
     @field:SerializedName("userId") var userId: Int = 0,
     @field:SerializedName("views") var views: Int = 0,

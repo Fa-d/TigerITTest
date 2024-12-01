@@ -20,7 +20,10 @@ class PostsViewmodel @Inject constructor(
     fun getPosts() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                postsList.emit(mainRepository.getPostsByOffset().posts)
+                val posts = mainRepository.getPostsByOffset().posts
+                mainRepository.insertPostsToDb(posts)
+                postsList.emit(posts)
+
             }
         }
     }
