@@ -1,5 +1,6 @@
 package com.example.tigerittest.data.db
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,5 +14,15 @@ interface PostsDao {
 
     @Query("DELETE FROM posts")
     suspend fun clearPosts()
+
+
+    @Query("SELECT * FROM posts")
+    fun getAllPosts(): PagingSource<Int, Post>
+
+    @Query("SELECT * FROM posts WHERE id = :postId")
+    suspend fun getPostById(postId: Int): Post?
+
+    @Query("SELECT * FROM posts WHERE userId = :userId")
+    suspend fun getAllPostOfAUser(userId: Int): List<Post>
 
 }

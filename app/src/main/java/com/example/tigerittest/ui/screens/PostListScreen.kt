@@ -8,22 +8,26 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.tigerittest.ui.components.PostItem
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.example.tigerittest.domain.utils.LocalPostsViewmodel
+import com.example.tigerittest.ui.components.PostItem
 
 
 @Composable
 fun PostListScreen() {
     val viewModel = LocalPostsViewmodel.current
-    val postsList = viewModel.postsList.collectAsState()
+    // val postsList = viewModel.postsList.collectAsState()
+    val posts = viewModel.posts.collectAsLazyPagingItems()
+
     LaunchedEffect(null) {
-        viewModel.getPosts()
+        //viewModel.getPostsFromApi()
     }
-    if (postsList.value.isEmpty()) {
+    if (posts.loadState.refresh is LoadState.Loading) {
         Box(modifier = Modifier.fillMaxSize()) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
@@ -32,11 +36,16 @@ fun PostListScreen() {
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            items(postsList.value.size) { index ->
-                val postItem = postsList.value[index]
-                PostItem(postItem = postItem, onItemClicked = {})
-                Spacer(modifier = Modifier.height(10.dp))
+            items(
+                count = posts.itemCount,
+                key = posts.itemKey { it },
+            ) { index ->
+                val postItem = posts[index]
 
+                if (postItem != null) {
+                    PostItem(postItem = postItem, onItemClicked = {})
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
 
             }
         }

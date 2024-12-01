@@ -1,8 +1,12 @@
 package com.example.tigerittest.domain.core
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.tigerittest.data.network.ApiService
 import com.example.tigerittest.data.db.MainDatabase
 import com.example.tigerittest.data.models.Post
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -14,4 +18,14 @@ class MainRepository @Inject constructor(
 
     suspend fun insertPostsToDb(posts: List<Post>) = database.postsDao().insertAll(posts)
 
+
+    fun getPostsFromMediator(): Flow<PagingData<Post>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            remoteMediator = PostsRemoteMediator(database, network),
+            pagingSourceFactory = {
+                database.postsDao().getAllPosts()
+            },
+        ).flow
+    }
 }
