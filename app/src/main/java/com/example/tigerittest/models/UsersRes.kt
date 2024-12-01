@@ -1,6 +1,8 @@
 package com.example.tigerittest.models
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -13,6 +15,7 @@ data class UsersRes(
 
 
 @Parcelize
+@Entity(tableName = "users", primaryKeys = ["id"])
 data class User(
     @field:SerializedName("age") var age: Int = 0,
     @field:SerializedName("birthDate") var birthDate: String = "",
@@ -37,11 +40,11 @@ data class User(
     @field:SerializedName("userAgent") var userAgent: String = "",
     @field:SerializedName("username") var username: String = "",
     @field:SerializedName("weight") var weight: Double = 0.0,
-    @field:SerializedName("hair") var hair: Hair = Hair(),
-    @field:SerializedName("address") var address: Address = Address(),
-    @field:SerializedName("bank") var bank: Bank = Bank(),
-    @field:SerializedName("company") var company: Company = Company(),
-    @field:SerializedName("crypto") var crypto: Crypto = Crypto(),
+    @Ignore @field:SerializedName("hair") var hair: Hair = Hair(),
+    @Ignore @field:SerializedName("address") var address: Address = Address(),
+    @Ignore @field:SerializedName("bank") var bank: Bank = Bank(),
+    @Ignore @field:SerializedName("company") var company: Company = Company(),
+    @Ignore @field:SerializedName("crypto") var crypto: Crypto = Crypto(),
 ) : Parcelable
 
 @Parcelize
