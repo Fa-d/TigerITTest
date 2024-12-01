@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import com.example.tigerittest.domain.core.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -18,6 +19,7 @@ class PostsViewmodel @Inject constructor(
 
     //  val postsList = MutableStateFlow<List<Post>>(emptyList())
     val posts = mainRepository.getPostsFromMediator().cachedIn(viewModelScope)
+    val postDetails = MutableStateFlow(PostDetailsShow())
 
 
     fun getPostsFromApi() {
@@ -58,5 +60,28 @@ class PostsViewmodel @Inject constructor(
         return savedStateHandle.get<Int>("postId") ?: 0
     }
 
+    fun getPostDetailsWithUserData() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val userData = mainRepository.getUserByIdDb(getUserId())
+                val postData = mainRepository.getPostById(getPostId())
+                postDetails.emit(
+                    PostDetailsShow(
+                        userData?.firstName + " " + userData?.lastName,
+                        userData?.id ?: 0,
+                        postData?.title ?: "",
+                        postData?.body ?: ""
+                    )
+                )
+            }
+        }
+    }
 
 }
+
+data class PostDetailsShow(
+    var name: String = "",
+    var userId: Int = 0,
+    var postTitle: String = "",
+    var postContent: String = ""
+)

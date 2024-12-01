@@ -32,5 +32,7 @@ class MainRepository @Inject constructor(
 
     suspend fun getUserByIdDb(userId: Int) = database.usersDao().getUserById(userId)
     suspend fun insertSingleUser(user: User) = database.usersDao().insertSingleUser(user)
+    suspend fun getPostById(postId: Int) = database.postsDao().getPostById(postId)
+
 
 }

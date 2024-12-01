@@ -35,7 +35,10 @@ fun DummyPostNavGraph(
         ) {
             PostDetailsScreen()
         }
-        composable(NavScreens.USER_DETAIL_SCREEN) {
+        composable(
+            NavScreens.USER_DETAIL_SCREEN + "/{userId}",
+            arguments = listOf(navArgument("userId") { type = NavType.IntType })
+        ) {
             UserDetailScreen()
         }
     }
